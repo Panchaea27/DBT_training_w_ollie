@@ -6,6 +6,29 @@ sources:
     schema: jaffle_shop
     
     tables:
-      - name: customers
+      - name: customers #name of the column. Has to refer to the og name
+        columns:
+        - name: id
+          description: primary key
+          tests:
+            - unique
+            - not_null
 
       - name: orders
+        columns:
+        - name: id
+          description: primary key
+          tests:
+            - unique
+            - not_null
+        - name: user_id
+          description: foreign key from customer table
+          tests:
+            - not_null
+            - relationships:
+                field: id
+                to: ref('customers')
+        - name: status
+          tests:
+            - accepted_values:
+                values: ['returned','completed','return_pending','shipped','placed','ollie']

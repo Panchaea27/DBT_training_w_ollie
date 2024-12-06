@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: jaffle_shop #this is what ginger is referring to in SQL statement (first name)
+    database: raw
+    schema: jaffle_shop
+    
+    tables:
+      - name: customers
+
+      - name: orders

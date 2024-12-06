@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: jaffle_shop #this is what ginger is referring to in SQL statement (first name)
+    database: raw
+    schema: jaffle_shop
+    
+    tables:
+      - name: customers #name of the column. Has to refer to the og name
+        columns:
+        - name: id
+          description: primary key
+          tests:
+            - unique
+            - not_null
+
+      - name: orders
+        columns:
+        - name: id
+          description: primary key
+          tests:
+            - unique
+            - not_null
+        - name: user_id
+          description: foreign key from customer table
+          tests:
+            - not_null
+            - relationships:
+                field: id
+                to: source('jaffle_shop','customers')
+        - name: status
+          tests:
+            - accepted_values:
+                values: ['returned','completed','return_pending','shipped','placed']
